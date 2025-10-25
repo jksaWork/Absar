@@ -1,10 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { toast } from "react-toastify";
 import Form from "@/components/Form";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-function Page() {
+
+function UpdatePromptContent() {
   // const
   const router = useRouter();
   const { data: session } = useSession();
@@ -75,6 +76,14 @@ function Page() {
       submitting={submitting}
       handleSubmit={updatePrompt}
     />
+  );
+}
+
+function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <UpdatePromptContent />
+    </Suspense>
   );
 }
 
